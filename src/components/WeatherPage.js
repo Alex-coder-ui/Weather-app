@@ -62,7 +62,7 @@ class WeatherPage extends Component {
                         </div>
                         <div className="square">
                             <p>Weather</p>
-                            <p className="data">{this.state.weather}</p>
+                            <p className="data">{this.state.weatherDesc}</p>
                         </div>
                         <div className="square">
                             <p>Wind speed </p>
@@ -70,7 +70,7 @@ class WeatherPage extends Component {
                         </div>
                     </div>
 
-                    <h2><i className="fas fa-tint"></i> Current Conditions</h2>
+                    <h2>Current Conditions</h2>
                     <div className="data-container">
 
                         <div className="square">
@@ -81,7 +81,7 @@ class WeatherPage extends Component {
                     </div>
 
 
-                    <h2><i className="fas fa-thermometer-quarter"></i> Other Conditions </h2>
+                    <h2> Other Conditions </h2>
                     <div className="data-container">
 
                         <div className="square">

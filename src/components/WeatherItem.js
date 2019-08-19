@@ -28,7 +28,7 @@ class WeatherItem extends Component {
     };
 
     deleteCityCard = () => {
-        this.props.deleteCityCard(this.state.id);
+        this.props.deleteCityCard(this.props.index);
     };
 
     render() {
@@ -39,7 +39,7 @@ class WeatherItem extends Component {
 
                     <div className="square">
                         <Card>
-                            <Card.Header>City {this.state.name}</Card.Header>
+                            <Card.Header className="square">City {this.state.name}</Card.Header>
                             <Card.Body>
                                 <DLink className={"DLink"} to={{pathname: '/weatherpage/' + this.state.id}}>
                                     <Card.Title> {this.state.weather}</Card.Title>

@@ -51,6 +51,7 @@ export default class HomePage extends Component {
         this.setState({items: array});
     };
 
+
     recoverItem = (cityData) => {
         let cities = this.state.items;
         cities.push(cityData);
@@ -64,31 +65,33 @@ export default class HomePage extends Component {
         this.setState({items: cities});
     };
 
-    deleteCityCard = (id) => {
-        let items = this.state.items.filter(i => i.id !== id);
+    deleteCityCard = (i) => {
+        let arr = this.state.items;
+        arr.splice(i,1);
         let array = localStorage.getItem(CITIES_LS_KEY).split(",");
-        localStorage.setItem(CITIES_LS_KEY, array.filter(id => id !== id));
-        this.setState({items: items})
+        localStorage.setItem(CITIES_LS_KEY, array.splice(i,1));
+        this.setState({items: arr})
     };
 
     updateCityCard = (id) => {
         getCityById(id, this.updateItem);
     };
 
+
+
     render() {
         const items = this.state.items;
         const cityInput = this.state.cityInput;
         return (
             <div>
-
                 <div className="form">
                     <input name="city" value={cityInput} onChange={this.changeCityInput}/>
                     <button onClick={this.addNew}><i className="fas fa-search">Add city</i></button>
                 </div>
 
                 <div>
-                    {items.map((item, index) => (
-                        <WeatherItem key={index} cityData={item} deleteCityCard={this.deleteCityCard}
+                    {items.map((item, index, i ) => (
+                        <WeatherItem key={index} cityData={item} index={i} deleteCityCard={this.deleteCityCard}
                                      updateData={this.updateCityCard}/>
                     ))}
                 </div>
