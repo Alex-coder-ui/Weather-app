@@ -17,7 +17,7 @@ class App extends Component {
 
                     <Switch>
                         <Route exact path="/" component={Homepage}/>
-                        <Route path="/Weatherpage" component={Weatherpage}/>
+                        <Route path="/Weatherpage/" component={Weatherpage}/>
                     </Switch>
                 </div>
 
