@@ -13,7 +13,6 @@ export default class Header extends Component {
                     <Nav className="mr-auto">
                         <Navbar.Toggle aria-controls="responsive-nav"/>
                         <DLink className={"DLink"} to="/">HomePage</DLink>
-                        <DLink className={"DLink"} to="/Weatherpage">Weatherpage</DLink>
                     </Nav>
                 </Navbar>
             </div>
