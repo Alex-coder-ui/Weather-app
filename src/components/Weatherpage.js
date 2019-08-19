@@ -1,6 +1,4 @@
 import React, {Component} from 'react'
-import Weatheritem from './WeatherItem'
-import {getCityById, getCityByName} from "../actions/fetch_api_data";
 
 const {CITIES_LS_KEY} = "cities";
 
@@ -11,17 +9,19 @@ class Weatherpage extends Component {
         this.state = {
             id: this.props.id,
             name: this.props.name,
-            weather: this.props.weather,
-            weatherDesc: this.props.weatherDesc,
-            temp: this.props.temp,
+            weather: "",
+            weatherDesc: "",
+            temp: "",
         }
     }
 
     componentDidMount() {
-        getCityByName(this.props.id, this.processAddNew);
-    };
+        if (this.props) {
+            console.log(this.props)
 
 
+        }
+    }
 
 
     render() {
@@ -34,15 +34,15 @@ class Weatherpage extends Component {
                     <div className="data-container">
                         <div className="square">
                             <p>City</p>
-                            <p className="data">{this.state.name}</p>
+                            <p className="data">{this.props.name}</p>
                         </div>
                         <div className="square">
                             <p>Country</p>
-                            <p className="data">{this.state.country}</p>
+                            <p className="data">{this.props.id}</p>
                         </div>
                         <div className="square">
                             <p>Time Zone Id</p>
-                            <p className="data">{this.state.weather}</p>
+                            <p className="data">{this.props.weather}</p>
                         </div>
                         <div className="square">
                             <p>Local Time</p>

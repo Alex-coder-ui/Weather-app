@@ -5,6 +5,16 @@ import Weatherpage from './components/Weatherpage'
 import {Route, Switch} from "react-router-dom"
 import Header from "./components/Header"
 
+const routes=[
+    {
+        path:'/',
+        component:Homepage
+    },
+    {
+        path:'/Weathrpage',
+        component:Weatherpage
+    }
+];
 
 
 
@@ -17,7 +27,7 @@ class App extends Component {
 
                     <Switch>
                         <Route exact path="/" component={Homepage}/>
-                        <Route path="/Weatherpage/" component={Weatherpage}/>
+                        <Route path="/Weatherpage/" render={(props) => <Weatherpage {...props} isAuthed={true} />}/>
                     </Switch>
                 </div>
 
