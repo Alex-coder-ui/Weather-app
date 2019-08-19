@@ -26,10 +26,17 @@ class WeatherPage extends Component {
         this.setState({
             id: cityData.id,
             name: cityData.name,
+            country: cityData.sys.country,
             weather: cityData.weather[0].main,
             weatherDesc: cityData.weather[0].description,
-            temp: cityData.main.temp
-            //TODO: and so on..
+            temp: cityData.main.temp,
+            pressure:cityData.main.pressure,
+            humidity:cityData.main.humidity,
+            temp_max: cityData.main.temp_max,
+            temp_min: cityData.main.temp_min,
+            wind: cityData.wind.speed,
+
+
         });
     };
 
@@ -43,8 +50,7 @@ class WeatherPage extends Component {
             <div>
                 <div className="dashboard">
 
-                    <h2><i className="fas fa-chart-bar"></i> Dashboard </h2>
-                    <h2><i className="far fa-compass"></i> Location</h2>
+
                     <div className="data-container">
                         <div className="square">
                             <p>City</p>
@@ -52,15 +58,15 @@ class WeatherPage extends Component {
                         </div>
                         <div className="square">
                             <p>Country</p>
-                            <p className="data">{this.state.id}</p>
+                            <p className="data">{this.state.country}</p>
                         </div>
                         <div className="square">
-                            <p>Time Zone Id</p>
+                            <p>Weather</p>
                             <p className="data">{this.state.weather}</p>
                         </div>
                         <div className="square">
-                            <p>Local Time</p>
-                            <p className="data">Local Time</p>
+                            <p>Wind speed </p>
+                            <p className="data">Wind speed {this.state.wind} m/s </p>
                         </div>
                     </div>
 
@@ -69,7 +75,7 @@ class WeatherPage extends Component {
 
                         <div className="square">
                             <p>Condition</p>
-                            <p className="data">Condition</p>
+                            <p className="data">Pressure  {this.state.pressure} mpa </p>
                         </div>
 
                     </div>
@@ -79,21 +85,21 @@ class WeatherPage extends Component {
                     <div className="data-container">
 
                         <div className="square">
-                            <p>Clouds</p>
-                            <p className="data">Clouds %</p>
+                            <p>Temp max</p>
+                            <p className="data">Temp max {this.kelvinToCelsius(this.state.temp_max)} В°C</p>
 
                         </div>
                         <div className="square">
-                            <p>Feels like (Celcius)</p>
+                            <p>Temp now (Celcius)</p>
                             <p className="data">{this.kelvinToCelsius(this.state.temp)} В°C</p>
                         </div>
                         <div className="square">
-                            <p>Feels like (Fahrenheit)</p>
-                            <p className="data">Feels like (Fahrenheit) В°F</p>
+                            <p>Temp min</p>
+                            <p className="data">Temp min {this.kelvinToCelsius(this.state.temp_min)} В°C</p>
                         </div>
                         <div className="square">
                             <p>Humidity</p>
-                            <p className="data">Humidity %</p>
+                            <p className="data">Humidity {this.state.humidity} %</p>
                         </div>
 
                     </div>
