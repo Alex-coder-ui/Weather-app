@@ -1,5 +1,5 @@
 It's simple weather SPA, that created just for training!
-Or to passinterview =)) Have a nice and sunny day!
+Or to  pass the interview =)) Have a nice and sunny day!
 
 To run this application please install the node.js.
 
@@ -7,7 +7,7 @@ In the command prompt window, use command "cd" to change current folder.
 
 If you have some issuses with start this APP try to delete package-lock.json, run 'npm init' in your command prompt. And eventually run 'npm install -d'.
 
-In the project directory, first run npm install and soon you can run:
+In the project directory, first of all run npm install and soon you can run:
 
 ### `npm start`
 

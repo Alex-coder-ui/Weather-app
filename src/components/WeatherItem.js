@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import Button from "react-bootstrap/Button"
 import Card from "react-bootstrap/Card"
 import {NavLink as DLink} from "react-router-dom"
-import Weatherpage from "./Weatherpage";
 
 class WeatherItem extends Component {
 
@@ -16,12 +15,12 @@ class WeatherItem extends Component {
             temp: this.props.cityData.main.temp,
         };
         this.deleteCityCard = this.deleteCityCard.bind(this);
-        this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
+        this.updateData = this.updateData.bind(this);
     }
 
 
-    forceUpdateHandler(){
-        this.forceUpdate();
+    updateData() {
+        this.props.updateData(this.state.id);
     };
 
     kelvinToCelsius = (k) => {
@@ -40,17 +39,17 @@ class WeatherItem extends Component {
 
                     <div className="square">
                         <Card>
-                                <Card.Header>City {this.state.name}</Card.Header>
-                                <Card.Body>
-                                    <DLink className={"DLink"} to={{ pathname:'/Weatherpage/'}}>
+                            <Card.Header>City {this.state.name}</Card.Header>
+                            <Card.Body>
+                                <DLink className={"DLink"} to={{pathname: '/weatherpage/' + this.state.id}}>
                                     <Card.Title> {this.state.weather}</Card.Title>
                                     <Card.Text>
                                         Temp {this.kelvinToCelsius(this.state.temp)} В°C
                                     </Card.Text>
                                 </DLink>
-                                    <Button variant="primary" onClick={this.forceUpdateHandler}>Fetch data</Button>
-                                    <Button variant="primary" onClick={this.deleteCityCard}>Delete </Button>
-                                </Card.Body>
+                                <Button variant="primary" onClick={this.updateData}>Fetch data</Button>
+                                <Button variant="primary" onClick={this.deleteCityCard}>Delete </Button>
+                            </Card.Body>
                         </Card>
 
 

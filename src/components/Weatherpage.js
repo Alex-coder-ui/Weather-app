@@ -1,27 +1,41 @@
 import React, {Component} from 'react'
+import {getCityById} from "../actions/fetch_api_data";
 
-const {CITIES_LS_KEY} = "cities";
 
-class Weatherpage extends Component {
+class WeatherPage extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            id: this.props.id,
-            name: this.props.name,
+            id: "",
+            name: "",
             weather: "",
             weatherDesc: "",
             temp: "",
-        }
+            pressure: "",
+            //TODO: and so on..
+        };
+        this.setItem = this.setItem.bind(this);
     }
 
     componentDidMount() {
-        if (this.props) {
-            console.log(this.props)
-
-
-        }
+        getCityById(this.props.match.params.id, this.setItem);
     }
+
+    setItem = (cityData) => {
+        this.setState({
+            id: cityData.id,
+            name: cityData.name,
+            weather: cityData.weather[0].main,
+            weatherDesc: cityData.weather[0].description,
+            temp: cityData.main.temp
+            //TODO: and so on..
+        });
+    };
+
+    kelvinToCelsius = (k) => {
+        return Math.round((k - 273.15));
+    };
 
 
     render() {
@@ -34,15 +48,15 @@ class Weatherpage extends Component {
                     <div className="data-container">
                         <div className="square">
                             <p>City</p>
-                            <p className="data">{this.props.name}</p>
+                            <p className="data">{this.state.name}</p>
                         </div>
                         <div className="square">
                             <p>Country</p>
-                            <p className="data">{this.props.id}</p>
+                            <p className="data">{this.state.id}</p>
                         </div>
                         <div className="square">
                             <p>Time Zone Id</p>
-                            <p className="data">{this.props.weather}</p>
+                            <p className="data">{this.state.weather}</p>
                         </div>
                         <div className="square">
                             <p>Local Time</p>
@@ -71,7 +85,7 @@ class Weatherpage extends Component {
                         </div>
                         <div className="square">
                             <p>Feels like (Celcius)</p>
-                            <p className="data">{this.state.temp} В°C</p>
+                            <p className="data">{this.kelvinToCelsius(this.state.temp)} В°C</p>
                         </div>
                         <div className="square">
                             <p>Feels like (Fahrenheit)</p>
@@ -91,4 +105,4 @@ class Weatherpage extends Component {
 }
 
 
-export default Weatherpage
+export default WeatherPage

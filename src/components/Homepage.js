@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import WeatherItem from "./WeatherItem"
-import {getCityByName, getCityById} from "../actions/fetch_api_data";
+import {getCityById, getCityByName} from "../actions/fetch_api_data";
 
 
 const CITIES_LS_KEY = "cities";
 
-export default class Homepage extends Component {
+export default class HomePage extends Component {
 
     constructor(props) {
         super(props);
@@ -17,6 +17,9 @@ export default class Homepage extends Component {
         this.addNew = this.addNew.bind(this);
         this.processAddNew = this.processAddNew.bind(this);
         this.deleteCityCard = this.deleteCityCard.bind(this);
+        this.updateCityCard = this.updateCityCard.bind(this);
+        this.recoverItem = this.recoverItem.bind(this);
+        this.updateItem = this.updateItem.bind(this);
     }
 
     componentDidMount() {
@@ -54,12 +57,22 @@ export default class Homepage extends Component {
         this.setState({items: cities});
     };
 
+    updateItem = (cityData) => {
+        let cities = this.state.items;
+        let foundIndex = cities.findIndex(x => x.id === cityData.id);
+        cities[foundIndex] = cityData;
+        this.setState({items: cities});
+    };
 
     deleteCityCard = (id) => {
         let items = this.state.items.filter(i => i.id !== id);
         let array = localStorage.getItem(CITIES_LS_KEY).split(",");
         localStorage.setItem(CITIES_LS_KEY, array.filter(id => id !== id));
         this.setState({items: items})
+    };
+
+    updateCityCard = (id) => {
+        getCityById(id, this.updateItem);
     };
 
     render() {
@@ -75,7 +88,8 @@ export default class Homepage extends Component {
 
                 <div>
                     {items.map((item, index) => (
-                        <WeatherItem key={index} cityData={item} deleteCityCard={this.deleteCityCard}/>
+                        <WeatherItem key={index} cityData={item} deleteCityCard={this.deleteCityCard}
+                                     updateData={this.updateCityCard}/>
                     ))}
                 </div>
 
