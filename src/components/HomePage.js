@@ -65,11 +65,11 @@ export default class HomePage extends Component {
         this.setState({items: cities});
     };
 
-    deleteCityCard = (i) => {
+    deleteCityCard = (index) => {
         let arr = this.state.items;
-        arr.splice(i,1);
+        arr.splice(index,1);
         let array = localStorage.getItem(CITIES_LS_KEY).split(",");
-        localStorage.setItem(CITIES_LS_KEY, array.splice(i,1));
+        localStorage.setItem(CITIES_LS_KEY, array.splice(index,1));
         this.setState({items: arr})
     };
 
@@ -90,8 +90,8 @@ export default class HomePage extends Component {
                 </div>
 
                 <div>
-                    {items.map((item, index, i ) => (
-                        <WeatherItem key={index} cityData={item} index={i} deleteCityCard={this.deleteCityCard}
+                    {items.map((item, index ) => (
+                        <WeatherItem key={index} cityData={item}  deleteCityCard={this.deleteCityCard}
                                      updateData={this.updateCityCard}/>
                     ))}
                 </div>

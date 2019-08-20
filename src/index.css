@@ -1,8 +1,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Open Sans", 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
-  background: url("./bg3.jpg") no-repeat;
+  font-family: "Open Sans", 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background: url("./good-weather.jpg") no-repeat;
   color: #fff;
  
 }
@@ -24,7 +24,7 @@ body * {
 
 .container h1 {
   text-transform: capitalize;
-  font-family: Raleway;
+  font-family: Arial;
   font-weight: bold;
   width: 30%;
   font-size: 2rem;
@@ -65,6 +65,7 @@ h1, h2 {
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
   position: relative;
+
 
 }
 
@@ -113,9 +114,27 @@ h1, h2 {
   margin: 10px;
   height: auto;
   text-align: center;
-  
+
+
   color: #555;
   animation: slideDown 1.2s ease-in-out;
+}
+
+.DLink {
+  font-weight: bold;
+  font-size: 18px;
+  padding: 15px;
+}
+
+.DLink {
+  color: #00FFFF;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.DLink:hover {
+  text-decoration: none;
+  text-shadow: 1px 1px 3px #28a7e9;
+
 }
 
 .square p:first-of-type {
