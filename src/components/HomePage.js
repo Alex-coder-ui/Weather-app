@@ -3,6 +3,7 @@ import WeatherItem from "./WeatherItem"
 import {getCityById, getCityByName} from "../actions/fetch_api_data";
 
 
+
 const CITIES_LS_KEY = "cities";
 
 export default class HomePage extends Component {
@@ -13,23 +14,17 @@ export default class HomePage extends Component {
             cityInput: "London",
             items: []
         };
-        this.changeCityInput = this.changeCityInput.bind(this);
-        this.addNew = this.addNew.bind(this);
-        this.processAddNew = this.processAddNew.bind(this);
-        this.deleteCityCard = this.deleteCityCard.bind(this);
-        this.updateCityCard = this.updateCityCard.bind(this);
-        this.recoverItem = this.recoverItem.bind(this);
-        this.updateItem = this.updateItem.bind(this);
+
     }
 
-    componentDidMount() {
-        let array = localStorage.getItem(CITIES_LS_KEY);
-        if (array) {
-            array.split(",").forEach(cityId => {
-                getCityById(cityId, this.recoverItem);
-                //TODO: put cityData to redux
-            });
-        }
+      componentWillMount() {
+         let array = localStorage.getItem(CITIES_LS_KEY);
+         if (array) {
+             array.split(",").forEach(cityId => {
+                 getCityById(cityId, this.recoverItem);
+                 //TODO: put cityData to redux
+             });
+         }
     }
 
     changeCityInput = (e) => {
@@ -39,11 +34,11 @@ export default class HomePage extends Component {
         });
     };
 
-    addNew = () => {
+     addNew = () => {
         getCityByName(this.state.cityInput, this.processAddNew);
     };
 
-    processAddNew = (cityData) => {
+     processAddNew = (cityData) => {
         let array = this.state.items;
         array.push(cityData);
         localStorage.setItem(CITIES_LS_KEY, array.map(item => item.id));
@@ -52,7 +47,7 @@ export default class HomePage extends Component {
     };
 
 
-    recoverItem = (cityData) => {
+     recoverItem = (cityData) => {
         let cities = this.state.items;
         cities.push(cityData);
         this.setState({items: cities});
@@ -65,12 +60,11 @@ export default class HomePage extends Component {
         this.setState({items: cities});
     };
 
-    deleteCityCard = (index) => {
-        let arr = this.state.items;
-        arr.splice(index,1);
-        let array = localStorage.getItem(CITIES_LS_KEY).split(",");
-        localStorage.setItem(CITIES_LS_KEY, array.splice(index,1));
-        this.setState({items: arr})
+     deleteCityCard = (id) => {
+         let cities = this.state.items.filter(i => i.id !== id );
+         console.log(id);
+         localStorage.setItem(CITIES_LS_KEY, cities.map(item => item.id));
+         this.setState({items: cities});
     };
 
     updateCityCard = (id) => {
@@ -90,8 +84,8 @@ export default class HomePage extends Component {
                 </div>
 
                 <div>
-                    {items.map((item, index ) => (
-                        <WeatherItem key={index} cityData={item}  deleteCityCard={this.deleteCityCard}
+                    {items.map((item) => (
+                        <WeatherItem  key={item.id} cityData={item}   deleteCityCard={this.deleteCityCard}
                                      updateData={this.updateCityCard}/>
                     ))}
                 </div>

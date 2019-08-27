@@ -14,21 +14,20 @@ class WeatherItem extends Component {
             weatherDesc: this.props.cityData.weather[0].description,
             temp: this.props.cityData.main.temp,
         };
-        this.deleteCityCard = this.deleteCityCard.bind(this);
-        this.updateData = this.updateData.bind(this);
+
     }
 
 
-    updateData() {
+     updateData =()=> {
         this.props.updateData(this.state.id);
     };
 
-    kelvinToCelsius = (k) => {
+     kelvinToCelsius = (k) => {
         return Math.round((k - 273.15));
     };
 
-    deleteCityCard = () => {
-        this.props.deleteCityCard(this.props.index);
+     deleteCityCard = () => {
+        this.props.deleteCityCard(this.state.id);
     };
 
     render() {
