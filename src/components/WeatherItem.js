@@ -18,15 +18,15 @@ class WeatherItem extends Component {
     }
 
 
-     updateData =()=> {
+    updateData = () => {
         this.props.updateData(this.state.id);
     };
 
-     kelvinToCelsius = (k) => {
+    kelvinToCelsius = (k) => {
         return Math.round((k - 273.15));
     };
 
-     deleteCityCard = () => {
+    deleteCityCard = () => {
         this.props.deleteCityCard(this.state.id);
     };
 

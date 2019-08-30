@@ -1,15 +1,12 @@
 import React, {Component} from 'react'
 import WeatherItem from "./WeatherItem"
-import {getCityById, getCityByName} from "../actions/fetch_api_data";
+import {getCityById, getCityData} from "../actions/fetch_api_data";
 import {connect} from "react-redux";
-
+import {bindActionCreators} from "redux";
 
 
 const CITIES_LS_KEY = "cities";
 
-const mapStateToProps = state => {
-    return {items: state.items};
-};
 
 class ConnectedHomePage extends Component {
 
@@ -32,6 +29,12 @@ class ConnectedHomePage extends Component {
         }
     }
 
+    recoverItem = (cityData) => {
+        let cities = this.state.items;
+        cities.push(cityData);
+        this.setState({items: cities});
+    };
+
     changeCityInput = (e) => {
         let value = e.target.value;
         this.setState({
@@ -40,7 +43,7 @@ class ConnectedHomePage extends Component {
     };
 
     addNew = () => {
-        getCityByName(this.state.cityInput, this.processAddNew);
+        this.props.GetCityData(this.state.cityInput, this.processAddNew);
     };
 
     processAddNew = (cityData) => {
@@ -51,12 +54,6 @@ class ConnectedHomePage extends Component {
         this.setState({items: array});
     };
 
-
-    recoverItem = (cityData) => {
-        let cities = this.state.items;
-        cities.push(cityData);
-        this.setState({items: cities});
-    };
 
     updateItem = (cityData) => {
         let cities = this.state.items;
@@ -99,5 +96,15 @@ class ConnectedHomePage extends Component {
     }
 }
 
-const HomePage = connect(mapStateToProps)(ConnectedHomePage);
+function mapStateToProps(state) {
+    return {
+        apiResponse: state.getCityDataReducer.weatherData,
+    }
+}
+
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({GetCityData: getCityData}, dispatch);
+}
+
+const HomePage = connect(mapStateToProps, matchDispatchToProps)(ConnectedHomePage);
 export default HomePage;

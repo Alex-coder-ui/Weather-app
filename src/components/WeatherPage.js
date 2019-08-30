@@ -13,7 +13,6 @@ class WeatherPage extends Component {
             weatherDesc: "",
             temp: "",
             pressure: "",
-            //TODO: and so on..
         };
         this.setItem = this.setItem.bind(this);
     }
@@ -30,8 +29,8 @@ class WeatherPage extends Component {
             weather: cityData.weather[0].main,
             weatherDesc: cityData.weather[0].description,
             temp: cityData.main.temp,
-            pressure:cityData.main.pressure,
-            humidity:cityData.main.humidity,
+            pressure: cityData.main.pressure,
+            humidity: cityData.main.humidity,
             temp_max: cityData.main.temp_max,
             temp_min: cityData.main.temp_min,
             wind: cityData.wind.speed,
@@ -75,7 +74,7 @@ class WeatherPage extends Component {
 
                         <div className="square">
                             <p>Condition</p>
-                            <p className="data">Pressure  {this.state.pressure} mpa </p>
+                            <p className="data">Pressure {this.state.pressure} mpa </p>
                         </div>
 
                     </div>
