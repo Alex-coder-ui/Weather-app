@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
-import {getCityById} from "../actions/fetch_api_data";
+import {getCityData, getCityDataById} from "../actions/fetch_api_data";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
 
 
-class WeatherPage extends Component {
+class ConnectedWeatherPage extends Component {
     constructor(props) {
         super(props);
 
@@ -18,7 +20,7 @@ class WeatherPage extends Component {
     }
 
     componentDidMount() {
-        getCityById(this.props.match.params.id, this.setItem);
+        this.props.GetCityDataById(this.props.match.params.id, this.setItem);
     }
 
     setItem = (cityData) => {
@@ -109,5 +111,19 @@ class WeatherPage extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        apiResponse: state.getCityDataReducer.weatherData,
+        updateResponse: state.getCityDataByIdReducer.weatherData,
+    }
+}
 
-export default WeatherPage
+function matchDispatchToProps(dispatch) {
+    return bindActionCreators({
+        GetCityData: getCityData,
+        GetCityDataById: getCityDataById
+    }, dispatch);
+}
+
+const WeatherPage = connect(mapStateToProps, matchDispatchToProps)(ConnectedWeatherPage);
+export default WeatherPage;

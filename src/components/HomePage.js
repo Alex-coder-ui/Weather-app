@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import WeatherItem from "./WeatherItem"
-import {getCityById, getCityData} from "../actions/fetch_api_data";
+import {getCityDataById, getCityData} from "../actions/fetch_api_data";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import deleteCardData from "../actions/DeleteData";
 
 
 const CITIES_LS_KEY = "cities";
@@ -19,12 +20,11 @@ class ConnectedHomePage extends Component {
     }
 
 
-    componentWillMount() {
+    componentDidMount() {
         let array = localStorage.getItem(CITIES_LS_KEY);
         if (array) {
             array.split(",").forEach(cityId => {
-                getCityById(cityId, this.recoverItem);
-                //TODO: put cityData to redux
+                this.props.GetCityDataById(cityId, this.recoverItem);
             });
         }
     }
@@ -62,15 +62,16 @@ class ConnectedHomePage extends Component {
         this.setState({items: cities});
     };
 
+    updateCityCard = (id) => {
+        this.props.GetCityDataById(id, this.updateItem);
+    };
+
     deleteCityCard = (id) => {
+        this.props.DeleteCardData(id);
         let cities = this.state.items.filter(i => i.id !== id);
         console.log(id);
         localStorage.setItem(CITIES_LS_KEY, cities.map(item => item.id));
         this.setState({items: cities});
-    };
-
-    updateCityCard = (id) => {
-        getCityById(id, this.updateItem);
     };
 
 
@@ -99,11 +100,16 @@ class ConnectedHomePage extends Component {
 function mapStateToProps(state) {
     return {
         apiResponse: state.getCityDataReducer.weatherData,
+        updateResponse: state.getCityDataByIdReducer.weatherData,
+        deleteData: state.deleteCardDataReducer.weatherData,
     }
 }
 
 function matchDispatchToProps(dispatch) {
-    return bindActionCreators({GetCityData: getCityData}, dispatch);
+    return bindActionCreators({
+        GetCityData: getCityData,
+        GetCityDataById: getCityDataById, DeleteCardData: deleteCardData
+    }, dispatch);
 }
 
 const HomePage = connect(mapStateToProps, matchDispatchToProps)(ConnectedHomePage);
