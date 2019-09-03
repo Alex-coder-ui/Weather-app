@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
-import {getCityData, getCityDataById} from "../actions/fetch_api_data";
 import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
 
 
 class ConnectedWeatherPage extends Component {
@@ -9,37 +7,14 @@ class ConnectedWeatherPage extends Component {
         super(props);
 
         this.state = {
-            id: "",
-            name: "",
-            weather: "",
-            weatherDesc: "",
-            temp: "",
-            pressure: "",
+            id: ""
         };
-        this.setItem = this.setItem.bind(this);
     }
 
     componentDidMount() {
-        this.props.GetCityDataById(this.props.match.params.id, this.setItem);
+        console.log(this.props.Response);
     }
 
-    setItem = (cityData) => {
-        this.setState({
-            id: cityData.id,
-            name: cityData.name,
-            country: cityData.sys.country,
-            weather: cityData.weather[0].main,
-            weatherDesc: cityData.weather[0].description,
-            temp: cityData.main.temp,
-            pressure: cityData.main.pressure,
-            humidity: cityData.main.humidity,
-            temp_max: cityData.main.temp_max,
-            temp_min: cityData.main.temp_min,
-            wind: cityData.wind.speed,
-
-
-        });
-    };
 
     kelvinToCelsius = (k) => {
         return Math.round((k - 273.15));
@@ -55,19 +30,19 @@ class ConnectedWeatherPage extends Component {
                     <div className="data-container">
                         <div className="square">
                             <p>City</p>
-                            <p className="data">{this.state.name}</p>
+                            <p className="data">{this.props.Response[11]}</p>
                         </div>
                         <div className="square">
                             <p>Country</p>
-                            <p className="data">{this.state.country}</p>
+                            <p className="data">{this.props.Response[8].country}</p>
                         </div>
                         <div className="square">
                             <p>Weather</p>
-                            <p className="data">{this.state.weatherDesc}</p>
+                            <p className="data">{this.props.Response[1][0].description}</p>
                         </div>
                         <div className="square">
                             <p>Wind speed </p>
-                            <p className="data">Wind speed {this.state.wind} m/s </p>
+                            <p className="data">Wind speed {this.props.Response[5].speed} m/s </p>
                         </div>
                     </div>
 
@@ -76,7 +51,7 @@ class ConnectedWeatherPage extends Component {
 
                         <div className="square">
                             <p>Condition</p>
-                            <p className="data">Pressure {this.state.pressure} mpa </p>
+                            <p className="data">Pressure {this.props.Response[3].pressure} mpa </p>
                         </div>
 
                     </div>
@@ -87,20 +62,20 @@ class ConnectedWeatherPage extends Component {
 
                         <div className="square">
                             <p>Temp max</p>
-                            <p className="data">Temp max {this.kelvinToCelsius(this.state.temp_max)} В°C</p>
+                            <p className="data">Temp max {this.kelvinToCelsius(this.props.Response[3].temp_max)} В°C</p>
 
                         </div>
                         <div className="square">
                             <p>Temp now (Celcius)</p>
-                            <p className="data">{this.kelvinToCelsius(this.state.temp)} В°C</p>
+                            <p className="data">{this.kelvinToCelsius(this.props.Response[3].temp)} В°C</p>
                         </div>
                         <div className="square">
                             <p>Temp min</p>
-                            <p className="data">Temp min {this.kelvinToCelsius(this.state.temp_min)} В°C</p>
+                            <p className="data">Temp min {this.kelvinToCelsius(this.props.Response[3].temp_min)} В°C</p>
                         </div>
                         <div className="square">
                             <p>Humidity</p>
-                            <p className="data">Humidity {this.state.humidity} %</p>
+                            <p className="data">Humidity {this.props.Response[3].humidity} %</p>
                         </div>
 
                     </div>
@@ -113,17 +88,10 @@ class ConnectedWeatherPage extends Component {
 
 function mapStateToProps(state) {
     return {
-        apiResponse: state.getCityDataReducer.weatherData,
-        updateResponse: state.getCityDataByIdReducer.weatherData,
+        Response: state.getCityDataByIdReducer.weatherData,
     }
 }
 
-function matchDispatchToProps(dispatch) {
-    return bindActionCreators({
-        GetCityData: getCityData,
-        GetCityDataById: getCityDataById
-    }, dispatch);
-}
 
-const WeatherPage = connect(mapStateToProps, matchDispatchToProps)(ConnectedWeatherPage);
+const WeatherPage = connect(mapStateToProps)(ConnectedWeatherPage);
 export default WeatherPage;

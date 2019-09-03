@@ -40,7 +40,8 @@ class WeatherItem extends Component {
                         <Card>
                             <Card.Header className="square">City {this.state.name}</Card.Header>
                             <Card.Body>
-                                <DLink className={"DLink"} to={{pathname: '/weatherpage/' + this.state.id}}>
+                                <DLink className={"DLink"} to={{pathname: '/weatherpage/' + this.state.id}}
+                                       onClick={this.updateData}>
                                     <Card.Title> {this.state.weather}</Card.Title>
                                     <Card.Text>
                                         Temp {this.kelvinToCelsius(this.state.temp)} В°C

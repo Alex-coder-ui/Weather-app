@@ -74,7 +74,6 @@ class ConnectedHomePage extends Component {
         this.setState({items: cities});
     };
 
-
     render() {
         const items = this.state.items;
         const cityInput = this.state.cityInput;
